@@ -436,6 +436,10 @@ body {
 
 <body>
 
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 
 <!-- Background hearts -->
 
@@ -502,27 +506,25 @@ body {
 
 <script>
 
-const scene =
-    document.getElementById("scene");
+const scene = document.getElementById("scene");
+const music = document.getElementById("music");
 
 let opened = false;
 
+scene.addEventListener("click", () => {
 
-scene.addEventListener(
-    "click",
-    () => {
+    opened = !opened;
 
-        opened = !opened;
+    scene.classList.toggle("open", opened);
 
-        scene.classList.toggle(
-            "open",
-            opened
-        );
-
+    if (opened) {
+        music.volume = 0.35;
+        music.play().catch(() => {});
+    } else {
+        music.pause();
+        music.currentTime = 0;
     }
-);
+
+});
 
 </script>
-
-</body>
-</html>
