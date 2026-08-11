@@ -509,7 +509,58 @@ body {
 const scene = document.getElementById("scene");
 const music = document.getElementById("music");
 
+const creator = document.getElementById("creator");
+const createButton = document.getElementById("createButton");
+
+const recipientInput = document.getElementById("recipient");
+const titleInput = document.getElementById("title");
+const messageInput = document.getElementById("message");
+const senderInput = document.getElementById("sender");
+
+const letterTitle = document.querySelector(".letter h2");
+const letterMessage = document.querySelector(".letter p");
+const letterSignature = document.querySelector(".signature");
+
 let opened = false;
+
+
+/* =========================
+   CHECK FOR SHARED LETTER
+========================= */
+
+const params = new URLSearchParams(window.location.search);
+
+const sharedRecipient = params.get("to");
+const sharedTitle = params.get("title");
+const sharedMessage = params.get("message");
+const sharedSender = params.get("from");
+
+
+if (sharedMessage) {
+
+    letterTitle.textContent =
+        sharedTitle || "Hi! 💗";
+
+    letterMessage.textContent =
+        sharedMessage;
+
+    letterSignature.textContent =
+        "— " + (sharedSender || "Someone") + " ♡";
+
+    if (sharedRecipient) {
+        letterTitle.textContent =
+            "Hi, " + sharedRecipient + "! 💗";
+    }
+
+    /* Hide creator when viewing a shared letter */
+    creator.style.display = "none";
+
+}
+
+
+/* =========================
+   ENVELOPE + MUSIC
+========================= */
 
 scene.addEventListener("click", () => {
 
@@ -518,11 +569,80 @@ scene.addEventListener("click", () => {
     scene.classList.toggle("open", opened);
 
     if (opened) {
+
         music.volume = 0.35;
+
         music.play().catch(() => {});
+
     } else {
+
         music.pause();
+
         music.currentTime = 0;
+
+    }
+
+});
+
+
+/* =========================
+   CREATE SHAREABLE LETTER
+========================= */
+
+createButton.addEventListener("click", async () => {
+
+    const recipient =
+        recipientInput.value.trim();
+
+    const title =
+        titleInput.value.trim();
+
+    const message =
+        messageInput.value.trim();
+
+    const sender =
+        senderInput.value.trim();
+
+
+    if (!recipient || !title || !message || !sender) {
+
+        alert("Please fill in every box 💗");
+
+        return;
+
+    }
+
+
+    const url =
+        new URL(window.location.href);
+
+    url.search = "";
+
+    url.searchParams.set("to", recipient);
+    url.searchParams.set("title", title);
+    url.searchParams.set("message", message);
+    url.searchParams.set("from", sender);
+
+
+    const shareLink =
+        url.toString();
+
+
+    try {
+
+        await navigator.clipboard.writeText(shareLink);
+
+        alert(
+            "💌 Your letter link has been copied!\n\nSend it to someone special ❤️"
+        );
+
+    } catch (error) {
+
+        prompt(
+            "Copy your letter link:",
+            shareLink
+        );
+
     }
 
 });
