@@ -429,7 +429,101 @@ body {
 .scene.open + .hint {
     opacity: 0;
 }
+/* =========================
+   LETTER CREATOR
+========================= */
 
+.creator {
+    position: relative;
+    z-index: 20;
+
+    width: min(90vw, 420px);
+    margin: 0 auto 25px;
+
+    padding: 22px;
+
+    background: rgba(255, 250, 250, 0.95);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 12px 35px
+        rgba(150, 90, 100, 0.18);
+
+    text-align: center;
+}
+
+.creator h1 {
+    margin: 0 0 18px;
+
+    color: #d98296;
+
+    font-size: 22px;
+
+    font-weight: normal;
+}
+
+.creator input,
+.creator textarea {
+    width: 100%;
+
+    margin-bottom: 12px;
+
+    padding: 12px;
+
+    border: 1px solid #efd1d7;
+
+    border-radius: 10px;
+
+    background: #fffdfd;
+
+    color: #805b62;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.creator textarea {
+    height: 120px;
+
+    resize: none;
+}
+
+.creator input:focus,
+.creator textarea:focus {
+    border-color: #e99aaa;
+}
+
+.creator button {
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #e99aaa;
+
+    color: white;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 15px
+        rgba(180, 80, 100, 0.2);
+}
+
+.creator button:active {
+    transform: scale(0.98);
+}
 </style>
 </head>
 
